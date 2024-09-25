@@ -1,0 +1,112 @@
+#version: '3.9'
+services: 
+  redis:
+    container_name: redis_container
+    image: redis:alpine
+    restart: always
+    ports: 
+      - '6379:6379'
+    command: redis-server --loglevel warning
+    volumes:
+      - ./docker-volumes/cache:/data
+  mongodb:
+    container_name: mongodb_container
+    image: mongo:latest
+    restart: always
+    ports: 
+      - '27017:27017'
+    volumes:
+      - ./docker-volumes/mongodb:/data/db
+  mysql:
+    container_name: mysql_container
+    image: mysql:latest
+    restart: always
+    environment:
+      - MYSQL_DATABASE=real_authentication
+      - MYSQL_USER-mysqluser
+      - MYSQL_ROOT_PASSWORD=localpassword
+      - MYSQL_PASSWORD=localpassword
+      # (this is just an example, not intended to be a production configuration)
+    ports: 
+      - '3306:3306'
+    volumes:
+      - ./docker-volumes/mysql:/var/lib/mysql
+  postgres:
+    container_name: postgres_container
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_DB=real_reviews
+      - POSTGRES_USER-mysqluser
+      - POSTGRES_PASSWORD=localpassword
+      # (this is just an example, not intended to be a production configuration)
+    ports: 
+      - '5432:5432'
+    volumes:
+      - ./docker-volumes/postgres:/var/lib/postgresql
+  rabbitmq:
+    container_name: rabbitmq_container
+    image: rabbitmq:4.0-management-alpine
+    restart: always
+    ports:
+      # AMQP protocol port
+      - '5672:5672'
+      # Management UI
+      - '15672:15672'
+  elasticsearch:
+    container_name: elasticsearch_container
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.15.1
+    restart: always
+    environment:
+      ES_JAVA_OPTS: -Xmx1g -Xms1g
+      bootstrap.memory_lock: "true"
+      discovery.type: single-node
+      network.host: 0.0.0.0
+      transport.host: 127.0.0.1
+      http.host: 0.0.0.0
+      xpack.security.enabled: "true"
+      xpack.security.authc.api_key.enabled: "true"
+      xpack.monitoring.collection.enabled: "true"
+      xpack.security.enrollment.enabled: "true"
+      xpack.security.authc.token.enabled: "true"
+      ELASTIC_PASSWORD: localpassword
+    ports:
+      - 9200:9200
+      - 9300:9300
+    volumes:
+      - ./docker-volumes/elasticsearch-data:/usr/share/elasticsearch/data
+      # /docker-volumes/elasticsearch-data on this folder give permissions for group and other to can edit
+    networks:
+      - elastic
+      # for Kibana token run this in Exec 
+      # bin/elasticsearch-service-tokens create elastic/kibana kibana-token    
+
+        #---------------- not sure does this is needed
+            # run this in Exec in the elasticsearch container to change the user password
+            # curl -s -X POST -u elastic:localpassword -H "Content-Type: application/json" http://localhost:9200/_security/user/elastic/_password -d "{\"password\":\"localpassword\"}"
+            # in this http://localhost:9200/_security/user/elastic/_password -d "{\"password\":\"localpassword\"}" elastic is the username
+
+  kibana:
+    container_name: kibana_container
+    image: docker.elastic.co/kibana/kibana:8.15.1
+    restart: always
+    environment:
+      - ELASTICSEARCH_HOSTS=["http://elasticsearch_container:9200"]
+      - ELASTICSEARCH_SERVICEACCOUNTTOKEN=AAEAAWVsYXN0aWMva2liYW5hL2tpYmFuYS10b2tlbjplVUVQSDZXRVJDYVYycG9uSVJJS2ln
+      #- ELASTICSEARCH_USERNAME=elastic
+      #- ELASTICSEARCH_PASSWORD=localpassword
+      - XPACK_FLEET_AGENTS_ELASTICSEARCH_HOSTS=["http://elasticsearch_container:9200"]
+    ports:
+      - 5601:5601
+    volumes:
+      - ./kibana.yml:/usr/share/kibana/config/kibana.yml:ro
+    depends_on:
+      - elasticsearch
+    networks:
+      - elastic
+
+
+networks:
+  elastic:
+    name: elastic
+
