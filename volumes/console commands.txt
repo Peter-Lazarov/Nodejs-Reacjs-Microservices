@@ -1,0 +1,1 @@
+docker compose up -d redis mongodb mysql postgres rabbitmq elasticsearch kibana

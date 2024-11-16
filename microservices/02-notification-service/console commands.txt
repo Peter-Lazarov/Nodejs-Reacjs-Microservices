@@ -1,0 +1,18 @@
+npm init -y
+tsc --init
+npm install -D @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-config-prettier eslint-plugin-import prettier eslint
+
+gitignore.io
+type node and create
+this put in .eslintignore and in .gitignore
+
+npm install -g nodemon
+npm install typescript typescript-transform-paths
+npm install -D ts-node tsc-alias tsconfig-paths
+npm install pino-pretty
+
+npm install express express-async-errors amqplib dotenv ejs email-templates http-status-codes nodemailer winston
+npm install -D @types/email-templates @types/express @types/amqplib @types/nodemailer
+
+npm install git+https://github.com/Peter-Lazarov/Nodejs-Reacjs-Microservices-Helper-Library.git
+
