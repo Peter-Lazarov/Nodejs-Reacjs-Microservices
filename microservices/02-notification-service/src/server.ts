@@ -1,9 +1,10 @@
 import 'express-async-errors';
 import http from 'http';
 
-import { winstonLogger } from '@uzochukwueddie/jobber-shared';
+import { winstonLogger } from '@peter-lazarov/nodejs-reacjs-microservices-helper-library';
 import { Logger } from 'winston';
-import { config } from '@notifications/config';
+//import { config } from '@notifications/config';
+require('dotenv').config({ path: '.env.dev' });
 import { Application } from 'express';
 import { healthRoutes } from '@notifications/routes';
 import { checkConnection } from '@notifications/elasticsearch';
@@ -12,7 +13,7 @@ import { Channel } from 'amqplib';
 import { consumeAuthEmailMessages, consumeOrderEmailMessages } from '@notifications/queues/email.consumer';
 
 const SERVER_PORT = 4001;
-const log: Logger = winstonLogger(`${config.ELASTIC_SEARCH_URL}`, 'notificationServer', 'debug');
+const log: Logger = winstonLogger(process.env.ELASTIC_SEARCH_URL as string, 'notificationServer', 'debug');
 
 export function start(app: Application): void {
   startServer(app);

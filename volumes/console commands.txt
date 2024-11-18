@@ -1,1 +1,7 @@
-docker compose up -d redis mongodb mysql postgres rabbitmq elasticsearch kibana
+docker compose up -d redis mongodb mysql postgres rabbitmq elasticsearch
+
+//change token for kibana after the elasticsearch is created
+
+docker compose up -d kibana
+
+//test Elastic http://localhost:5601/app/home#/ with user elastic localpassword

@@ -78,13 +78,14 @@ services:
       - 9300:9300
     volumes:
       - ./docker-volumes/elasticsearch-data:/usr/share/elasticsearch/data
-      # /docker-volumes/elasticsearch-data on this folder give permissions for group and other to can edit
+      # /docker-volumes/elasticsearch-data on this folder give permissions for group and other to can edit on ssd not in container
     networks:
       - elastic
-      # for Kibana token run this in Exec 
-      # bin/elasticsearch-service-tokens create elastic/kibana kibana-token    
+      # for Kibana token run this in Exec
+      # bin/elasticsearch-service-tokens create elastic/kibana kibana-token
+      # the generated token change here at > ELASTICSEARCH_SERVICEACCOUNTTOKEN
 
-        #---------------- not sure does this is needed
+        #---------------- 1 not sure does this is needed, 2 this is not used on second trying to run and work without it
             # run this in Exec in the elasticsearch container to change the user password
             # curl -s -X POST -u elastic:localpassword -H "Content-Type: application/json" http://localhost:9200/_security/user/elastic/_password -d "{\"password\":\"localpassword\"}"
             # in this http://localhost:9200/_security/user/elastic/_password -d "{\"password\":\"localpassword\"}" elastic is the username
@@ -95,7 +96,7 @@ services:
     restart: always
     environment:
       - ELASTICSEARCH_HOSTS=["http://elasticsearch_container:9200"]
-      - ELASTICSEARCH_SERVICEACCOUNTTOKEN=AAEAAWVsYXN0aWMva2liYW5hL2tpYmFuYS10b2tlbjplVUVQSDZXRVJDYVYycG9uSVJJS2ln
+      - ELASTICSEARCH_SERVICEACCOUNTTOKEN=AAEAAWVsYXN0aWMva2liYW5hL2tpYmFuYS10b2tlbjptdTZ0ZTloVFNxaXJiT1E4LTU0a2pn
       #- ELASTICSEARCH_USERNAME=elastic
       #- ELASTICSEARCH_PASSWORD=localpassword
       - XPACK_FLEET_AGENTS_ELASTICSEARCH_HOSTS=["http://elasticsearch_container:9200"]

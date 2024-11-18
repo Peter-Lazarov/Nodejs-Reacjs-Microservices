@@ -16,3 +16,4 @@ npm install -D @types/email-templates @types/express @types/amqplib @types/nodem
 
 npm install git+https://github.com/Peter-Lazarov/Nodejs-Reacjs-Microservices-Helper-Library.git
 
+npm install @elastic/elasticsearch

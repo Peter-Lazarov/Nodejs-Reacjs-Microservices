@@ -1,13 +1,14 @@
 import { Client } from '@elastic/elasticsearch';
 import { ClusterHealthResponse } from '@elastic/elasticsearch/lib/api/types';
-import { config } from '@notifications/config';
+//import { config } from '@notifications/config';
+require('dotenv').config({ path: '.env.dev' });
 import { winstonLogger } from '@peter-lazarov/nodejs-reacjs-microservices-helper-library';
 import { Logger } from 'winston';
 
-const log: Logger = winstonLogger(`${config.ELASTIC_SEARCH_URL}`, 'notificationElasticSearchServer', 'debug');
+const log: Logger = winstonLogger(process.env.ELASTIC_SEARCH_URL as string, 'notificationElasticSearchServer', 'debug');
 
 const elasticSearchClient = new Client({
-  node: `${config.ELASTIC_SEARCH_URL}`
+  node: process.env.ELASTIC_SEARCH_URL
 });
 
 export async function checkConnection(): Promise<void> {
