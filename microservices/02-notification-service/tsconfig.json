@@ -26,6 +26,8 @@
     ],
     "paths": {
       "@notifications/*": ["src/*"]
-    }
+    },
+
+    "types": ["jest"], "module": "commonjs", "target": "es6", "moduleResolution": "node"
   }
 }

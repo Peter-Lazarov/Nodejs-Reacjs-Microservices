@@ -1,7 +1,7 @@
 import 'express-async-errors';
 import http from 'http';
 
-import { winstonLogger } from '@peter-lazarov/nodejs-reacjs-microservices-helper-library';
+import { IEmailMessageDetails, winstonLogger } from '@peter-lazarov/nodejs-reacjs-microservices-helper-library';
 import { Logger } from 'winston';
 //import { config } from '@notifications/config';
 require('dotenv').config({ path: '.env.dev' });
@@ -26,6 +26,23 @@ async function startQueues(): Promise<void> {
   const emailChannel: Channel = await createConnection() as Channel;
   await consumeAuthEmailMessages(emailChannel);
   await consumeOrderEmailMessages(emailChannel);
+  
+  const verificationLink = `${process.env.CLIENT_URL}/confirm_email?v_token=123`
+  const messageDetails: IEmailMessageDetails = {
+    receiverEmail: `${process.env.SENDER_EMAIL}`,
+    verifyLink: verificationLink,
+    template: `verifyEmail`
+  };
+  
+  //Test sending of email
+  await emailChannel.assertExchange('jobber-email-notification', 'direct');
+  const message = JSON.stringify(messageDetails);
+  emailChannel.publish('jobber-email-notification', 'auth-email', Buffer.from(message));
+
+  //Test RabbitMQ
+  // await emailChannel.assertExchange('jobber-email-notification', 'direct');
+  // const message = JSON.stringify({name: 'Peter', service: 'notification service'});
+  // emailChannel.publish('jobber-email-notification', 'auth-email', Buffer.from(message));
 }
 
 function startElasticSearch(): void {

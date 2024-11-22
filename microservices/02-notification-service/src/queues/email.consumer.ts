@@ -8,7 +8,7 @@ import { sendEmail } from '@notifications/queues/mail.transport';
 const log: Logger = winstonLogger(`${config.ELASTIC_SEARCH_URL}`, 'emailConsumer', 'debug');
 
 async function consumeAuthEmailMessages(channel: Channel): Promise<void> {
-  try {
+  try {   
     if (!channel) {
       channel = await createConnection() as Channel;
     }
@@ -18,7 +18,13 @@ async function consumeAuthEmailMessages(channel: Channel): Promise<void> {
     await channel.assertExchange(exchangeName, 'direct');
     const jobberQueue = await channel.assertQueue(queueName, { durable: true, autoDelete: false });
     await channel.bindQueue(jobberQueue.queue, exchangeName, routingKey);
-    channel.consume(jobberQueue.queue, async (msg: ConsumeMessage | null) => {
+    channel.consume(jobberQueue.queue, async (msg: ConsumeMessage | null) => {    
+      //console.log(JSON.parse(msg!.content.toString()));
+      //channel.ack(msg!);
+
+      console.log('here 4');
+      console.log(config.CLIENT_URL);
+      
       const { receiverEmail, username, verifyLink, resetLink, template } = JSON.parse(msg!.content.toString());
       const locals: IEmailLocals = {
         appLink: `${config.CLIENT_URL}`,

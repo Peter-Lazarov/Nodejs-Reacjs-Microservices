@@ -17,3 +17,24 @@ npm install -D @types/email-templates @types/express @types/amqplib @types/nodem
 npm install git+https://github.com/Peter-Lazarov/Nodejs-Reacjs-Microservices-Helper-Library.git
 
 npm install @elastic/elasticsearch
+
+RabbitMQ - mail send test
+https://ethereal.email/
+
+
+for testing
+https://jestjs.io/docs/cli
+---------------------
+npm install -D jest ts-jest @jest/types
+
+//Cannot find name 'jest'.ts(2304)
+npm install -D @types/jest
+
+
+for Building 
+npm install fs-extra
+npm i --save-dev @types/fs-extra
+
+npm i --save-dev @types/jsonwebtoken
+npm install jsonwebtoken
+
