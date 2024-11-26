@@ -1,0 +1,13 @@
+npm init -y
+tsc --init
+
+npm install @elastic/elasticsearch axios bcrypt compression cookie-session cors dotenv express helmet
+npm install hpp http-status-codes jsonwebtoken pino-pretty typescript typescript-transform-paths winston
+
+npm install git+https://github.com/Peter-Lazarov/Nodejs-Reacjs-Microservices-Helper-Library.git
+
+npm install -D @jest/types @types/compression @types/cookie-session @types/cors @types/express @types/hpp @types/jest
+npm install -D @types/jsonwebtoken @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint eslint-config-prettier
+npm install -D eslint-plugin-import jest prettier ts-jest ts-node tsc-alias tsconfig-paths 
+npm install -D socket.io redis @socket.io/redis-adapter socket.io-client
+

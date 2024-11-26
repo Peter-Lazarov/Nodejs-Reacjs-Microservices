@@ -24,8 +24,8 @@ services:
     environment:
       - MYSQL_DATABASE=real_authentication
       - MYSQL_USER-mysqluser
-      - MYSQL_ROOT_PASSWORD=passwordroot
-      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=localpassword
+      - MYSQL_PASSWORD=localpassword
       # (this is just an example, not intended to be a production configuration)
     ports: 
       - '3306:3306'
@@ -37,8 +37,8 @@ services:
     restart: always
     environment:
       - POSTGRES_DB=real_reviews
-      - POSTGRES_USER-user
-      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER-mysqluser
+      - POSTGRES_PASSWORD=localpassword
       # (this is just an example, not intended to be a production configuration)
     ports: 
       - '5432:5432'
@@ -49,8 +49,8 @@ services:
     image: rabbitmq:4.0-management-alpine
     restart: always
     environment:
-      - RABBITMQ_DEFAULT_USER=user
-      - RABBITMQ_DEFAULT_PASS=password
+      - RABBITMQ_DEFAULT_USER=jobber
+      - RABBITMQ_DEFAULT_PASS=jobberpass
     ports:
       # AMQP protocol port
       - '5672:5672'
@@ -72,7 +72,7 @@ services:
       xpack.monitoring.collection.enabled: "true"
       xpack.security.enrollment.enabled: "true"
       xpack.security.authc.token.enabled: "true"
-      ELASTIC_PASSWORD: password
+      ELASTIC_PASSWORD: localpassword
     ports:
       - 9200:9200
       - 9300:9300
@@ -87,8 +87,8 @@ services:
 
         #---------------- 1 not sure does this is needed, 2 this is not used on second trying to run and work without it
             # run this in Exec in the elasticsearch container to change the user password
-            # curl -s -X POST -u user:password -H "Content-Type: application/json" http://localhost:9200/_security/user/elastic/_password -d "{\"password\":\"password\"}"
-            # in this http://localhost:9200/_security/user/elastic/_password -d "{\"password\":\"password\"}" elastic is the username
+            # curl -s -X POST -u elastic:localpassword -H "Content-Type: application/json" http://localhost:9200/_security/user/elastic/_password -d "{\"password\":\"localpassword\"}"
+            # in this http://localhost:9200/_security/user/elastic/_password -d "{\"password\":\"localpassword\"}" elastic is the username
 
   kibana:
     container_name: kibana_container
@@ -97,8 +97,8 @@ services:
     environment:
       - ELASTICSEARCH_HOSTS=["http://elasticsearch_container:9200"]
       - ELASTICSEARCH_SERVICEACCOUNTTOKEN=AAEAAWVsYXN0aWMva2liYW5hL2tpYmFuYS10b2tlbjptdTZ0ZTloVFNxaXJiT1E4LTU0a2pn
-      #- ELASTICSEARCH_USERNAME=user
-      #- ELASTICSEARCH_PASSWORD=password
+      #- ELASTICSEARCH_USERNAME=elastic
+      #- ELASTICSEARCH_PASSWORD=localpassword
       - XPACK_FLEET_AGENTS_ELASTICSEARCH_HOSTS=["http://elasticsearch_container:9200"]
     ports:
       - 5601:5601
@@ -122,10 +122,10 @@ services:
       - ENABLE_APM=0
       - NODE_ENV=development
       - CLIENT_URL=http://localhost:3000
-      - RABBITMQ_ENDPOINT=amqp://user:password@localhost:5672
-      - SENDER_EMAIL=...@ethereal
-      - SENDER_EMAIL_PASSWORD=
-      - ELASTIC_SEARCH_URL=http://user:password@localhost:9200
+      - RABBITMQ_ENDPOINT=amqp://jobber:jobberpass@localhost:5672
+      - SENDER_EMAIL=mellie.little@ethereal.email
+      - SENDER_EMAIL_PASSWORD=GzzdqsKbYZRu7K1eeV
+      - ELASTIC_SEARCH_URL=http://elastic:localpassword@localhost:9200
       - ELASTIC_APM_SERVER_URL=http://localhost:8200
       - ELASTIC_APM_SECRET_TOKEN=
     depends_on:
@@ -135,3 +135,4 @@ services:
 networks:
   elastic:
     name: elastic
+
