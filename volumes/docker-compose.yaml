@@ -14,23 +14,27 @@ services:
     image: mongo:latest
     restart: always
     ports: 
-      - '27017:27017'
+      #- '27017:27017'
+      - '27018:27017' #host port:container port
     volumes:
       - ./docker-volumes/mongodb:/data/db
   mysql:
     container_name: mysql_container
     image: mysql:latest
+    #command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
+      - MYSQL_USER=mysqluser
       - MYSQL_DATABASE=real_authentication
-      - MYSQL_USER-mysqluser
       - MYSQL_ROOT_PASSWORD=localpassword
       - MYSQL_PASSWORD=localpassword
       # (this is just an example, not intended to be a production configuration)
     ports: 
       - '3306:3306'
     volumes:
-      - ./docker-volumes/mysql:/var/lib/mysql
+      - ./docker-volumes/mysql:/var/lib/mysql:rw
+    user: mysql
+
   postgres:
     container_name: postgres_container
     image: postgres:latest
@@ -108,28 +112,6 @@ services:
       - elasticsearch
     networks:
       - elastic
-
-  notifications:
-    container_name: notification_container
-    build:
-      context: ../server/2-notification-service
-      dockerfile: Dockerfile.dev
-    restart: always
-    ports:
-      - 4001:4001
-    env_file: ../server/2-notification-service/.env
-    environment:
-      - ENABLE_APM=0
-      - NODE_ENV=development
-      - CLIENT_URL=http://localhost:3000
-      - RABBITMQ_ENDPOINT=amqp://jobber:jobberpass@localhost:5672
-      - SENDER_EMAIL=mellie.little@ethereal.email
-      - SENDER_EMAIL_PASSWORD=GzzdqsKbYZRu7K1eeV
-      - ELASTIC_SEARCH_URL=http://elastic:localpassword@localhost:9200
-      - ELASTIC_APM_SERVER_URL=http://localhost:8200
-      - ELASTIC_APM_SECRET_TOKEN=
-    depends_on:
-      - elasticsearch
 
 
 networks:
