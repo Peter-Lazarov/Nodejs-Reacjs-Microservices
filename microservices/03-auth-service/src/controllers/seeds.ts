@@ -39,7 +39,7 @@ export async function create(req: Request, res: Response): Promise<void> {
       profilePicture,
       emailVerificationToken: randomCharacters,
       emailVerified: sample([0, 1])
-    } as IAuthDocument;
+    } as unknown as IAuthDocument;
     await createAuthUser(authData);
   }
   res.status(StatusCodes.OK).json({ message: 'Seed users created successfully.' });

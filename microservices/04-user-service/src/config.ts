@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import cloudinary from 'cloudinary';
 
-dotenv.config({});
+dotenv.config({path: '.env.dev'});
 
 if (process.env.ENABLE_APM === '1') {
   // eslint-disable-next-line @typescript-eslint/no-var-requires

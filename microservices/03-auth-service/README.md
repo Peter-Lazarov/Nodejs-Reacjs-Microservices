@@ -19,8 +19,8 @@
 * You can update the version of `NodeJS` used inside the `Dockerfile` and `Dockerfile.dev`.
 * Make sure you already have your own shared library published.
 * Copy the `.npmrc` file from your shared library folder and replace `${NPM_TOKEN}` with the actual `personal access token` you created.
-* Once you have your `.npmrc` and before you run `npm install` command, replace all occurrences of `@uzochukwueddie/jobber-shared` with your own shared library.
-* After replacing all occurrences of `@uzochukwueddie/jobber-shared`, you can then run `npm install` command.
+* Once you have your `.npmrc` and before you run `npm install` command, replace all occurrences of `@peter-lazarov/nodejs-reacjs-microservices-helper-library` with your own shared library.
+* After replacing all occurrences of `@peter-lazarov/nodejs-reacjs-microservices-helper-library`, you can then run `npm install` command.
 * Copy contents of `.env.dev` to `.env` file
   * Create an account on `https://cloudinary.com`
   * Get your `cloud name`, `cloud secret` and `cloud api key` and add to `.env`

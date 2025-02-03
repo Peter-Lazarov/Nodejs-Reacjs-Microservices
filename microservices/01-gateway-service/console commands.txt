@@ -11,3 +11,14 @@ npm install -D @types/jsonwebtoken @typescript-eslint/eslint-plugin @typescript-
 npm install -D eslint-plugin-import jest prettier ts-jest ts-node tsc-alias tsconfig-paths 
 npm install -D socket.io redis @socket.io/redis-adapter socket.io-client
 
+-------------------------
+for the .env file
+in console type date | md5
+and set
+
+GATEWAY_JWT_TOKEN=08580174239787bc430c1a53a1ca0a64
+JWT_TOKEN=510beb97548b7be9b9521319fcd4f5f9
+SECRET_KEY_ONE=c18bb944aaa99f38916b541cf490ef16
+SECRET_KEY_TWO=44537017f34cbb749f63b40a28dea918
+
+then these generated keys must be the same on other services

@@ -30,7 +30,6 @@ export async function create(req: Request, res: Response): Promise<void> {
   const randomBytes: Buffer = await Promise.resolve(crypto.randomBytes(20));
   const randomCharacters: string = randomBytes.toString('hex');
   const authData: IAuthDocument = {
-  //const authData: unknown = {
     username: firstLetterUppercase(username),
     email: lowerCase(email),
     profilePublicId,

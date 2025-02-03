@@ -58,9 +58,5 @@ export async function read(req: Request, res: Response): Promise<void> {
     userJWT = signToken(existingUser.id!, existingUser.email!, existingUser.username!);
     userData = omit(existingUser, ['password']);
   }
-
-  userJWT = signToken(existingUser.id!, existingUser.email!, existingUser.username!);
-  userData = omit(existingUser, ['password']);
-
   res.status(StatusCodes.OK).json({ message, user: userData, token: userJWT, browserName: userBrowserName, deviceType: userDeviceType });
 }

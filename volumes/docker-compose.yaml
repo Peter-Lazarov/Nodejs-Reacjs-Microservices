@@ -14,8 +14,8 @@ services:
     image: mongo:latest
     restart: always
     ports: 
-      #- '27017:27017'
-      - '27018:27017' #host port:container port
+      - '27017:27017'
+      #- '27018:27017' #host port:container port
     volumes:
       - ./docker-volumes/mongodb:/data/db
   mysql:
@@ -100,7 +100,7 @@ services:
     restart: always
     environment:
       - ELASTICSEARCH_HOSTS=["http://elasticsearch_container:9200"]
-      - ELASTICSEARCH_SERVICEACCOUNTTOKEN=AAEAAWVsYXN0aWMva2liYW5hL2tpYmFuYS10b2tlbjptdTZ0ZTloVFNxaXJiT1E4LTU0a2pn
+      - ELASTICSEARCH_SERVICEACCOUNTTOKEN=AAEAAWVsYXN0aWMva2liYW5hL2tpYmFuYS10b2tlbjpiM3FXNjVFUFRicWF2X0luVzEwN3d3
       #- ELASTICSEARCH_USERNAME=elastic
       #- ELASTICSEARCH_PASSWORD=localpassword
       - XPACK_FLEET_AGENTS_ELASTICSEARCH_HOSTS=["http://elasticsearch_container:9200"]
