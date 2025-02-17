@@ -24,6 +24,7 @@ class AuthRoutes {
     this.router.put('/auth/reset-password/:token', Password.prototype.resetPassword);
     this.router.put('/auth/change-password', Password.prototype.changePassword);
     this.router.put('/auth/seed/:count', AuthSeed.prototype.create);
+
     return this.router;
   }
 }

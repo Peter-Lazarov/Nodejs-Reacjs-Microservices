@@ -6,7 +6,7 @@ import express, { Router } from 'express';
 
 const router: Router = express.Router();
 
-const sellerRoutes = (): Router => {
+const sellerRoutes = (): Router => { 
   router.get('/id/:sellerId', id);
   router.get('/username/:username', username);
   router.get('/random/:size', random);

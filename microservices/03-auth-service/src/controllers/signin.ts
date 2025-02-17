@@ -18,18 +18,23 @@ export async function read(req: Request, res: Response): Promise<void> {
   const { username, password, browserName, deviceType } = req.body;
   const isValidEmail: boolean = isEmail(username);
   const existingUser: IAuthDocument | undefined = !isValidEmail ? await getUserByUsername(username) : await getUserByEmail(username);
+  
   if (!existingUser) {
     throw new BadRequestError('Invalid credentials', 'SignIn read() method error');
   }
   const passwordsMatch: boolean = await AuthModel.prototype.comparePassword(password, `${existingUser.password}`);
+  //console.log('here 65 ' + passwordsMatch);
+  
   if (!passwordsMatch) {
     throw new BadRequestError('Invalid credentials', 'SignIn read() method error');
   }
   let userJWT = '';
-  let userData: IAuthDocument | null = null;
+  //let userData: IAuthDocument | null = null;
+  let userData: IAuthDocument | null = omit(existingUser, ['password']);
   let message = 'User login successfully';
   let userBrowserName = '';
   let userDeviceType = '';
+
   if (browserName !== existingUser.browserName || deviceType !== existingUser.deviceType) {
     // min 6 digits and max 6 digits
     // 100000 - 999999
@@ -58,5 +63,10 @@ export async function read(req: Request, res: Response): Promise<void> {
     userJWT = signToken(existingUser.id!, existingUser.email!, existingUser.username!);
     userData = omit(existingUser, ['password']);
   }
+  
+  //Uncomment for the local testing
+  userJWT = signToken(existingUser.id!, existingUser.email!, existingUser.username!);
+  userData = omit(existingUser, ['password']);
+  
   res.status(StatusCodes.OK).json({ message, user: userData, token: userJWT, browserName: userBrowserName, deviceType: userDeviceType });
 }

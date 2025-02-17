@@ -69,6 +69,10 @@ export class GatewayServer {
     }));
 
     app.use((req: Request, _res: Response, next: NextFunction) => {
+      //const fullUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
+      //console.log('here 41 ' + fullUrl);
+      //console.log('here 42 ' + req.session?.jwt);
+
       if (req.session?.jwt) {
         axiosAuthInstance.defaults.headers['Authorization'] = `Bearer ${req.session?.jwt}`;
         axiosBuyerInstance.defaults.headers['Authorization'] = `Bearer ${req.session?.jwt}`;

@@ -97,6 +97,7 @@ AuthModel.addHook('beforeCreate', async (auth: Model) => {
 });
 
 AuthModel.prototype.comparePassword = async function (password: string, hashedPassword: string): Promise<boolean> {
+  //console.log('here 60 password ' + password);  
   return compare(password, hashedPassword);
 };
 

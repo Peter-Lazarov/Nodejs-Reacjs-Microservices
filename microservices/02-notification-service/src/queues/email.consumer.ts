@@ -25,14 +25,15 @@ async function consumeAuthEmailMessages(channel: Channel): Promise<void> {
       console.log('here 4');
       console.log(config.CLIENT_URL);
       
-      const { receiverEmail, username, verifyLink, resetLink, template } = JSON.parse(msg!.content.toString());
+      const { receiverEmail, username, verifyLink, resetLink, template, otp } = JSON.parse(msg!.content.toString());
+      //console.log(JSON.parse(msg!.content.toString()));
       const locals: IEmailLocals = {
         appLink: `${config.CLIENT_URL}`,
         appIcon: 'https://i.ibb.co/Kyp2m0t/cover.png',
         username,
         verifyLink,
         resetLink,
-        //otp
+        otp
       };
       await sendEmail(template, receiverEmail, locals);
       channel.ack(msg!);

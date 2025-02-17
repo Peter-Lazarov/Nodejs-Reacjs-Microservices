@@ -30,6 +30,8 @@ export async function create(req: Request, res: Response): Promise<void> {
     const profilePublicId = uuidV4();
     const randomBytes: Buffer = await Promise.resolve(crypto.randomBytes(20));
     const randomCharacters: string = randomBytes.toString('hex');
+    const browserName = "Chrome";
+    const deviceType = "Desktop";
     const authData: IAuthDocument = {
       username: firstLetterUppercase(username),
       email: lowerCase(email),
@@ -38,7 +40,9 @@ export async function create(req: Request, res: Response): Promise<void> {
       country,
       profilePicture,
       emailVerificationToken: randomCharacters,
-      emailVerified: sample([0, 1])
+      emailVerified: sample([0, 1]),
+      browserName,
+      deviceType
     } as unknown as IAuthDocument;
     await createAuthUser(authData);
   }

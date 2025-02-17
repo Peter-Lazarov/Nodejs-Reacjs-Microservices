@@ -5,6 +5,10 @@ import { verify } from 'jsonwebtoken';
 
 class AuthMiddleware {
   public verifyUser(req: Request, _res: Response, next: NextFunction): void {
+    //console.log('here 43 ' + req.session?.jwt);
+    //console.log('here 44 ' + JSON.stringify(req.session));
+    //console.log('here 45 ' + JSON.stringify(req.headers));
+    
     if (!req.session?.jwt) {
       throw new NotAuthorizedError('Token is not available. Please login again.', 'GatewayService verifyUser() method error');
     }
