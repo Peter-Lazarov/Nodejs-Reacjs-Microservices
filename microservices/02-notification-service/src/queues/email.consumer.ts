@@ -22,8 +22,8 @@ async function consumeAuthEmailMessages(channel: Channel): Promise<void> {
       //console.log(JSON.parse(msg!.content.toString()));
       //channel.ack(msg!);
 
-      console.log('here 4');
-      console.log(config.CLIENT_URL);
+      //console.log('here 4');
+      //console.log(config.CLIENT_URL);
       
       const { receiverEmail, username, verifyLink, resetLink, template, otp } = JSON.parse(msg!.content.toString());
       //console.log(JSON.parse(msg!.content.toString()));

@@ -22,3 +22,7 @@ SECRET_KEY_ONE=c18bb944aaa99f38916b541cf490ef16
 SECRET_KEY_TWO=44537017f34cbb749f63b40a28dea918
 
 then these generated keys must be the same on other services
+
+
+at config.ts
+dotenv.config({path: '.env.dev'});
