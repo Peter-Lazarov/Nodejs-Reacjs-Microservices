@@ -41,7 +41,7 @@ services:
     restart: always
     environment:
       - POSTGRES_DB=real_reviews
-      - POSTGRES_USER-mysqluser
+      - POSTGRES_USER=postgresluser
       - POSTGRES_PASSWORD=localpassword
       # (this is just an example, not intended to be a production configuration)
     ports: 
