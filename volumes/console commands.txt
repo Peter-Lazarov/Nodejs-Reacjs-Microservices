@@ -5,3 +5,9 @@ docker compose up -d redis mongodb mysql postgres rabbitmq elasticsearch
 docker compose up -d kibana
 
 //test Elastic http://localhost:5601/app/home#/ with user elastic localpassword
+
+
+# Command to check health and shards
+curl -X GET "http://localhost:9200/_cluster/health?pretty" -u elastic:localpassword
+
+curl -X GET "http://localhost:9200/_cat/shards?v" -u elastic:localpassword
