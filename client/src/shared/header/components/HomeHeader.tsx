@@ -52,7 +52,7 @@ const HomeHeader: FC<IHomeHeaderProps> = ({ showCategoryContainer }): ReactEleme
   const [isNotificationDropdownOpen, setIsNotificationDropdownOpen] = useDetectOutsideClick(notificationDropdownRef, false);
   const [isOrderDropdownOpen, setIsOrderDropdownOpen] = useDetectOutsideClick(orderDropdownRef, false);
 
-  const onResendEmail = async (): Promise<void> => {
+  const onResendEmail = async (): Promise<void> => {   
     try {
       const result: IResponse = await resendEmail({ userId: authUser.id as number, email: `${authUser.email}` }).unwrap();
       dispatch(addAuthUser({ authInfo: result.user }));

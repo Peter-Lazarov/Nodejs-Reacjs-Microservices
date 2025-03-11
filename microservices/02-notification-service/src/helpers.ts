@@ -10,7 +10,7 @@ import Email from 'email-templates';
 const log: Logger = winstonLogger(process.env.ELASTIC_SEARCH_URL as string, 'mailTransportHelper', 'debug');
 
 async function emailTemplates(template: string, receiver: string, locals: IEmailLocals): Promise<void> {
-  try {
+  try {   
     const smtpTransport: Transporter = nodemailer.createTransport({
       host: 'smtp.ethereal.email',
       port: 587,

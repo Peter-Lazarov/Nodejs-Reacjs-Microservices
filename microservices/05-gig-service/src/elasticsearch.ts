@@ -35,7 +35,16 @@ async function createIndex(indexName: string): Promise<void> {
     if (result) {
       log.info(`Index "${indexName}" already exist.`);
     } else {
-      await elasticSearchClient.indices.create({ index: indexName });
+      await elasticSearchClient.indices.create({
+        index: indexName,
+        body: {
+          mappings: {
+            properties: {
+              sortId: { type: 'long' },
+            },
+          },
+        },
+      });
       await elasticSearchClient.indices.refresh({ index: indexName });
       log.info(`Created index ${indexName}`);
     }
@@ -65,12 +74,12 @@ const getIndexedData = async (index: string, itemId: string): Promise<ISellerGig
   }
 };
 
-const addDataToIndex = async (index: string, itemId: string, gigDocument: unknown): Promise<void> => {
+const addDataToIndex = async (index: string, itemId: string, gigDocument: object): Promise<void> => {
   try {
     await elasticSearchClient.index({
       index,
       id: itemId,
-      document: gigDocument
+      document: { ...gigDocument, sortId: parseInt(itemId, 10)}
     });
   } catch (error) {
     log.log('error', 'GigService elasticsearch addDataToIndex() method error:', error);
