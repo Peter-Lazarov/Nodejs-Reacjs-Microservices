@@ -2,8 +2,6 @@ import { BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError 
 import { getDataFromSessionStorage } from 'src/shared/utils/utils.service';
 
 const BASE_ENDPOINT = import.meta.env.VITE_BASE_ENDPOINT;
-console.log('here 1 ' + BASE_ENDPOINT);
-
 
 const baseQuery = fetchBaseQuery({
   baseUrl: `${BASE_ENDPOINT}/api/gateway/v1`,
@@ -17,8 +15,11 @@ const baseQuery = fetchBaseQuery({
 
 const baseQueryWithReAuth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (args, api, extraOptions) => {
   const result = await baseQuery(args, api, extraOptions);
-  if (result.error && result.error.status === 401) {
+  
+  if (result?.error?.status === 401) {
+  //if (result.error && result.error.status === 401) {
     const loggedInUsername: string = getDataFromSessionStorage('loggedInuser');
+    console.log('here 5 ' + loggedInUsername);
     await baseQuery(`/auth/refresh-token/${loggedInUsername}`, api, extraOptions);
   }
   return result;
