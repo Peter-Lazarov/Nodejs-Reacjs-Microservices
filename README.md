@@ -26,7 +26,8 @@ The whole site design with React, HTML, CSS, Tailwindcss
 
 ## Screenshots
 
-<img src="screenshots/Adding Gig.png" alt="Adding Gig">
-<img src="screenshots/Gig details.png" alt="Gig Details">
-<img src="screenshots/Home page.png" alt="Home Page">
+<img src="screenshots/Home page.png" alt="Home Page"><br>
+<img src="screenshots/Adding Gig.png" alt="Adding Gig"><br>
+<img src="screenshots/Gig details.png" alt="Gig Details"><br>
 <img src="screenshots/Seller profile.png" alt="Seller Profile">
+
