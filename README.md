@@ -11,7 +11,7 @@ Custom helper library
 Containers for microservices with Docker
 Orchestrate microservices with Kubernetes on minikube
 
-# Backend - Node.js and Express.js microservices
+## Backend - Node.js and Express.js microservices
 API gateway
 Notification service
 Authentication service
@@ -21,5 +21,12 @@ Chat service
 Order service
 Review service
 
-# Frontend - React
+## Frontend - React
 The whole site design with React, HTML, CSS, Tailwindcss
+
+## Screenshots
+
+<img src="screenshots/Adding Gig.png" alt="Adding Gig">
+<img src="screenshots/Gig details.png" alt="Gig Details">
+<img src="screenshots/Home page.png" alt="Home Page">
+<img src="screenshots/Seller profile.png" alt="Seller Profile">
