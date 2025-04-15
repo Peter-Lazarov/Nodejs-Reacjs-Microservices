@@ -26,8 +26,22 @@ The whole site design with React, HTML, CSS, Tailwindcss
 
 ## Screenshots
 
+**Docker containers running:** At the beginning start the docker containers.
+<img src="screenshots/Docker containers.png" alt="Docker containers"><br>
+
+**Microservices in action:** Starting all microservices.
+<img src="screenshots/Microservices running.png" alt="Microservices running"><br>
+
+**Homepage interface:** A preview of the main landing page with a clean and modern UI.
 <img src="screenshots/Home page.png" alt="Home Page"><br>
+
+**Gig creation process:** A step in adding a gig, showcasing the form fields and options available.
 <img src="screenshots/Adding Gig.png" alt="Adding Gig"><br>
+
+**Gig details page:** A look at a gig's information, including pricing, description, and seller profile.
 <img src="screenshots/Gig details.png" alt="Gig Details"><br>
-<img src="screenshots/Seller profile.png" alt="Seller Profile">
+
+**Seller profile:** Displays a seller's profile page, including previous work, experience, and ratings.
+<img src="screenshots/Seller profile.png" alt="Seller Profile"><br>
+
 
